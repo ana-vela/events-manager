@@ -36,7 +36,7 @@ const Event = mongoose.model("Event", eventsSchema);
 // POST request to /events to create a new event
 app.post("/events", function (req, res) {
   //retrieve new event details from req.body
-//   const event = req.body.event;
+  //   const event = req.body.event;
   Event.create(
     {
       title: event.title,
@@ -45,7 +45,7 @@ app.post("/events", function (req, res) {
     },
     (err, newEvent) => {
       if (err) {
-        return res.status(500).json({ message: err })
+        return res.status(500).json({ message: err });
       } else {
         return res.status(200).json({ message: "new event created", newEvent });
       }
@@ -70,6 +70,18 @@ app.get("/events", (req, res) => {
   // send response to client
 });
 // GET request to /events/:id to fetch single event
+app.get("/events/:id", (req, res) => {
+  Event.findOne({ _id: req.params.id }, (err, event) => {
+    if (err) {
+      return res.status(500).json({ message: err });
+    } else if (!event) {
+      return res.status(404).json({ message: "event not found" });
+    } else {
+      return res.status(200).json({ event });
+    }
+  });
+});
+
 // PUT request to /events/:id to update a single event
 // DELETE REQUEST to /books/:id to delete event
 
