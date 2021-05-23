@@ -11,11 +11,12 @@ const eventsSchema = new mongoose.Schema({
   cost: {
     type: Number,
     required: true,
+    min: [1],
   },
   category: {
     type: String,
     required: true,
-    enum: ["party", "meeting", "other"],
+    enum: ["business", "casual", "party", "general"],
   },
 });
 
