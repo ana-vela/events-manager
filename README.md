@@ -15,3 +15,9 @@ npm i mongoose
 ## To start server
 
 node index.js
+
+## Install Nodemon
+
+- automatically restarts server after code changes
+
+npm install --save-dev nodemon
