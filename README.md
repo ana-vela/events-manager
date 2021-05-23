@@ -1,10 +1,12 @@
 # events-manager
 
-Install Express
+## To Install Express
 
 npm init -y
+
 npm i express
 
-To start server 
 
-run: node index.js
+## To start server 
+
+node index.js
