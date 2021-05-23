@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 module.exports = function () {
 
-  const connectionString = `mongodb+srv://<username>:<pw>a@eventmanager.giipr.mongodb.net/EventManager?retryWrites=true&w=majority`
+  const connectionString = `mongodb+srv://AnaTestUser:MYSecurePass@eventmanager.giipr.mongodb.net/EventManager?retryWrites=true&w=majority`
   mongoose.connect(
     connectionString,
     {
