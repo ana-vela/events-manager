@@ -113,4 +113,16 @@ app.put("/events/:id", (req, res) => {
 
 // DELETE REQUEST to /events/:id to delete event
 
+app.delete("/events/:id", (req, res) => {
+    Event.findByIdAndDelete(req.params.id, (err, event) => {
+        if (err) {
+            return res.status(500).json({ message: err})
+        } else if (!event) {
+            return res.status(404).json({ message: "event was not found"})
+        } else {
+            return res.status(200).json({message: "event deleted successfully" })
+        }
+    } )
+})
+
 app.listen(port, () => console.log(`app listening on port ${port}`));
