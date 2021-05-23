@@ -71,7 +71,7 @@ app.get("/events", (req, res) => {
 });
 // GET request to /events/:id to fetch single event
 app.get("/events/:id", (req, res) => {
-  Event.findOne({ _id: req.params.id }, (err, event) => {
+  Event.findById(req.params.id, (err, event) => {
     if (err) {
       return res.status(500).json({ message: err });
     } else if (!event) {
