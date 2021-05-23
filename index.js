@@ -83,6 +83,34 @@ app.get("/events/:id", (req, res) => {
 });
 
 // PUT request to /events/:id to update a single event
-// DELETE REQUEST to /books/:id to delete event
+app.put("/events/:id", (req, res) => {
+  Event.findByIdAndUpdate(
+    req.params.id,
+    {
+      title: req.body.title,
+      cost: req.body.cost,
+      category: req.body.category,
+    },
+    (err, event) => {
+      if (err) {
+        return res.status(500).json({ message: err });
+      } else if (!event) {
+        return res.status(404).json({ message: "event not found" });
+      } else {
+        event.save((err, savedEvent) => {
+          if (err) {
+            return res.status(400).json({ message: err });
+          } else {
+            return res
+              .status(200)
+              .json({ message: "event saved successfully" });
+          }
+        });
+      }
+    }
+  );
+});
+
+// DELETE REQUEST to /events/:id to delete event
 
 app.listen(port, () => console.log(`app listening on port ${port}`));
