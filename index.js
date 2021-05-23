@@ -22,4 +22,28 @@ mongoose.connect(
   }
 );
 
+// create schema
+const eventsSchema = new mongoose.Schema({
+  title: String,
+  cost: Number,
+  category: String,
+});
+
+const Event = mongoose.model("Event", eventsSchema);
+
+Event.create(
+  {
+    title: "Bob's birthday",
+    cost: 100,
+    category: "celebration",
+  },
+  (err, event) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(event);
+    }
+  }
+);
+
 app.listen(port, () => console.log(`app listening on port ${port}`));
