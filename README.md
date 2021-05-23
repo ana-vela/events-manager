@@ -6,7 +6,12 @@ npm init -y
 
 npm i express
 
+## To Install Mongoose
 
-## To start server 
+- MongoDB will also be installed
+
+npm i mongoose
+
+## To start server
 
 node index.js
