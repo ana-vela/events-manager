@@ -1,8 +1,9 @@
 // set up mongoose
 const mongoose = require("mongoose");
-const connectionString = "mongodb://localhost:27017/events-manager";
 
 module.exports = function () {
+
+  const connectionString = `mongodb+srv://<username>:<pw>a@eventmanager.giipr.mongodb.net/EventManager?retryWrites=true&w=majority`
   mongoose.connect(
     connectionString,
     {
