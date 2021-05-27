@@ -1,4 +1,4 @@
-const user = require("../models/user");
+const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const secret = "secureSecret";
@@ -9,18 +9,18 @@ const expiry = 3600;
 exports.registerNewUser = (req, res) => {
   // fetch user details from req body
   // check if this username exists
-  user.findOne({ username: req.body.username }, (err, existingUser) => {
+  User.findOne({ username: req.body.username }, (err, existingUser) => {
     if (err) {
       return res.status(500).json({ err });
     }
     if (existingUser) {
       return res.status(400).json({ message: "username already exists" });
     }
-    user.create(
+    User.create(
       {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        username: req.body.userName,
+        username: req.body.username,
       },
       (err, newUser) => {
         if (err) {
