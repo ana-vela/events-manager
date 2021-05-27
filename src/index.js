@@ -2,12 +2,16 @@ const express = require("express");
 const app = express();
 const port = 4000;
 const dbSetup = require("./database/setup");
-const eventRoutes = require("./routes/eventRoutes");
 
+// Require routes
+const eventRoutes = require("./routes/eventRoutes");
+const authRoutes = require("./routes/authRoutes");
 app.use(express.json());
 
 // setup mongoose
 dbSetup();
+
+app.use("/auth", authRoutes);
 app.use(eventRoutes);
 
 // setup schema
