@@ -72,3 +72,40 @@ exports.registerNewUser = (req, res) => {
   // create jwt for user
   // send token to user
 };
+
+exports.loginUser = (req, res) => {
+  // check if user exists
+  User.findOne({ username: req.body.username }, (err, foundUser) => {
+    if (err) {
+      return res.status(500).json({ err });
+    }
+    if (!foundUser) {
+      return res.status(401).json({ message: "incorrect username" });
+    }
+    let match = bcrypt.compareSync(req.body.password, foundUser.password);
+    if (!match) {
+      return res.status(401).json({ message: "incorrect password" });
+    }
+    jwt.sign(
+      {
+        id: foundUser._id,
+        username: foundUser.username,
+        firstName: foundUser.firstName,
+        lastName: foundUser.lastName,
+      },
+      secret,
+      {
+        expiresIn: expiry,
+      },
+      (err, token) => {
+        if (err) {
+          return res.status(500).json({ err });
+        }
+        return res.status(200).json({
+          message: "User logged in",
+          token,
+        });
+      }
+    );
+  });
+};
