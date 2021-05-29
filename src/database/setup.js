@@ -1,9 +1,8 @@
 // set up mongoose
 const mongoose = require("mongoose");
+const connectionString = process.env.DB_URL;
 
 module.exports = function () {
-
-  const connectionString = `mongodb+srv://AnaTestUser:MYSecurePass@eventmanager.giipr.mongodb.net/EventManager?retryWrites=true&w=majority`
   mongoose.connect(
     connectionString,
     {

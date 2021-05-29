@@ -1,6 +1,12 @@
+// require('dotenv').config();
+// console.log(process.env);
+// if (process.env.NODE_ENV !== 'production') {
+//     require('dotenv').config();
+//   }
 const express = require("express");
 const app = express();
-const port = 4000;
+require('dotenv').config();
+const port = process.env.PORT; 
 const dbSetup = require("./database/setup");
 
 // Require routes

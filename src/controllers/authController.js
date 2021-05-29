@@ -1,8 +1,8 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const secret = "secureSecret";
-const expiry = 3600;
+const secret = process.env.JWT_SECRET;
+const expiry = Number(process.env.TOKEN_EXPIRY);
 
 // register new user
 
