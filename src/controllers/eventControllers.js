@@ -17,6 +17,7 @@ exports.createNewEvent = function (req, res) {
   );
 };
 exports.fetchEvents = (req, res) => {
+  console.log({user: req.user})
   let conditions = {};
   if (req.query.category) {
     conditions.category = req.query.category

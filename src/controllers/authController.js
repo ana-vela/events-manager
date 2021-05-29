@@ -21,6 +21,7 @@ exports.registerNewUser = (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         username: req.body.username,
+        role: req.body.role,
       },
       (err, newUser) => {
         if (err) {
@@ -46,6 +47,7 @@ exports.registerNewUser = (req, res) => {
                   username: newUser.username,
                   firstName: newUser.firstName,
                   lastName: newUser.lastName,
+                  role: newUser.role,
                 },
                 secret,
                 { expiresIn: expiry },
@@ -92,6 +94,7 @@ exports.loginUser = (req, res) => {
         username: foundUser.username,
         firstName: foundUser.firstName,
         lastName: foundUser.lastName,
+        role: foundUser.role,
       },
       secret,
       {
