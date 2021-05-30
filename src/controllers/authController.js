@@ -37,24 +37,25 @@ exports.registerNewUser = (req, res) => {
               if (err) {
                 return res.status(500).json({ err });
               }
-let token = createToken(newUser)
-if(!token){
-  return res.status(500).json({message: 'Sorry we cannot authenticate you. Please login'})
-}
-             
-                  
-                  return res.status(200).json({
-                    message: "user registration succesful",
-                    token,
+              let token = createToken(newUser);
+              if (!token) {
+                return res
+                  .status(500)
+                  .json({
+                    message: "Sorry we cannot authenticate you. Please login",
                   });
-                }
-              );
+              }
+
+              return res.status(200).json({
+                message: "user registration succesful",
+                token,
+              });
             });
           });
         });
       }
     );
-  
+  });
 
   // create a new user
   // hash user password
@@ -76,27 +77,17 @@ exports.loginUser = (req, res) => {
     if (!match) {
       return res.status(401).json({ message: "incorrect password" });
     }
-    jwt.sign(
-      {
-        id: foundUser._id,
-        username: foundUser.username,
-        firstName: foundUser.firstName,
-        lastName: foundUser.lastName,
-        role: foundUser.role,
-      },
-      secret,
-      {
-        expiresIn: expiry,
-      },
-      (err, token) => {
-        if (err) {
-          return res.status(500).json({ err });
-        }
-        return res.status(200).json({
-          message: "User logged in",
-          token,
-        });
-      }
-    );
+
+    let token = createToken(foundUser);
+    if (!token) {
+      return res
+        .status(500)
+        .json({ message: "Sorry we cannot authenticate you. Please login" });
+    }
+
+    return res.status(200).json({
+      message: "User logged in",
+      token,
+    });
   });
 };

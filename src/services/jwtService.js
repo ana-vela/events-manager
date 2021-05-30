@@ -16,5 +16,17 @@ exports.createToken = (user) => {
       { expiresIn: expiry }
     );
     return token;
-  } catch (err) {}
+  } catch (err) {
+    return null;
+  }
+};
+
+exports.decodeToken = (token) => {
+  try {
+    let decodedToken = jwt.verify(token, secret);
+    return decodedToken;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };
