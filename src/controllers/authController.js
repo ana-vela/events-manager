@@ -1,11 +1,8 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const secret = process.env.JWT_SECRET;
-const expiry = Number(process.env.TOKEN_EXPIRY);
+const { createToken } = require("../services/jwtService");
 
 // register new user
-
 exports.registerNewUser = (req, res) => {
   // fetch user details from req body
   // check if this username exists
@@ -40,21 +37,12 @@ exports.registerNewUser = (req, res) => {
               if (err) {
                 return res.status(500).json({ err });
               }
-
-              jwt.sign(
-                {
-                  id: newUser._id,
-                  username: newUser.username,
-                  firstName: newUser.firstName,
-                  lastName: newUser.lastName,
-                  role: newUser.role,
-                },
-                secret,
-                { expiresIn: expiry },
-                (err, token) => {
-                  if (err) {
-                    return res.status(500).json({ err });
-                  }
+let token = createToken(newUser)
+if(!token){
+  return res.status(500).json({message: 'Sorry we cannot authenticate you. Please login'})
+}
+             
+                  
                   return res.status(200).json({
                     message: "user registration succesful",
                     token,
@@ -66,7 +54,7 @@ exports.registerNewUser = (req, res) => {
         });
       }
     );
-  });
+  
 
   // create a new user
   // hash user password
