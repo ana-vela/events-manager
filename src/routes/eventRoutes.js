@@ -7,13 +7,12 @@ const {
 } = require("../middlewares/authentication");
 
 // POST request to /events to create a new event
-router.post("/events", authenticateUser, EventCtrl.createNewEvent);
+router.post("/events", authenticateUser, EventCtrl.fetchImage, EventCtrl.createNewEvent);
 
 // GET request to /events to fetch all events
 router.get(
   "/events",
   authenticateUser,
-  EventCtrl.fetchImage,
   EventCtrl.fetchEvents
 );
 

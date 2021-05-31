@@ -1,5 +1,7 @@
 // const { model } = require("mongoose");
 const mongoose = require("mongoose");
+const imageURL = 'https://imagegen.herokuapp.com/?category=${category}';
+
 
 // create schema
 const eventsSchema = new mongoose.Schema({
@@ -18,6 +20,9 @@ const eventsSchema = new mongoose.Schema({
     required: true,
     enum: ["business", "casual", "party", "general"],
   },
+  imageURL: {
+    type: String
+  }
 });
 
 const Event = mongoose.model("Event", eventsSchema);

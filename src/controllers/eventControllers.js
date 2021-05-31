@@ -1,13 +1,14 @@
 const Event = require("../models/event");
 const request = require('request');
-const imageURL = 'https://imagegen.herokuapp.com/?category=${category}';
+const imageURL = 'https://imagegen.herokuapp.com/?category=${req.body.category}';
 
 exports.createNewEvent = function (req, res) {
   //retrieve new event details from req.body
   //   const event = req.body.event;
   Event.create(
     {
-      ...req.body
+      ...req.body,
+      
     },
     (err, newEvent) => {
       if (err) {
@@ -24,7 +25,7 @@ exports.fetchEvents = (req, res) => {
   if (req.query.category) {
     conditions.category = req.query.category
   }
-
+console.log(imageURL);
   // fetch all events
   console.log(conditions);
   console.log(req.query);
@@ -68,6 +69,7 @@ exports.updateSingleEvent = (req, res) => {
       title: req.body.title,
       cost: req.body.cost,
       category: req.body.category,
+      image: req.body.imageURL
     },
     (err, event) => {
       if (err) {
