@@ -1,6 +1,7 @@
 const Event = require("../models/event");
-const request = require('request');
-const imageURL = 'https://imagegen.herokuapp.com/?category=${req.body.category}';
+const request = require("request");
+const imageURL =
+  "https://imagegen.herokuapp.com/?category=${req.body.category}";
 
 exports.createNewEvent = function (req, res) {
   //retrieve new event details from req.body
@@ -8,7 +9,6 @@ exports.createNewEvent = function (req, res) {
   Event.create(
     {
       ...req.body,
-      
     },
     (err, newEvent) => {
       if (err) {
@@ -20,12 +20,12 @@ exports.createNewEvent = function (req, res) {
   );
 };
 exports.fetchEvents = (req, res) => {
-  console.log({user: req.user})
+  console.log({ user: req.user });
   let conditions = {};
   if (req.query.category) {
-    conditions.category = req.query.category
+    conditions.category = req.query.category;
   }
-console.log(imageURL);
+  console.log(imageURL);
   // fetch all events
   console.log(conditions);
   console.log(req.query);
@@ -39,16 +39,16 @@ console.log(imageURL);
 };
 
 exports.fetchImage = (req, res) => {
-  Event.fetchEvents(req.body.category, (err, event) => {
+  Event(req.body.category, (err, event) => {
     request(imageURL, (err, res, body) => {
       if (err) {
         return res.status(500).json({ message: err });
       } else {
         return res.status(200).json({ events });
       }
-    } )
-  })
-}
+    });
+  });
+};
 
 exports.fetchSingleEvent = (req, res) => {
   Event.findById(req.params.id, (err, event) => {
@@ -69,7 +69,7 @@ exports.updateSingleEvent = (req, res) => {
       title: req.body.title,
       cost: req.body.cost,
       category: req.body.category,
-      image: req.body.imageURL
+      image: req.body.imageURL,
     },
     (err, event) => {
       if (err) {
